@@ -6,10 +6,6 @@ import os
 
 core_only = os.environ.get("CORE_ONLY", False)
 
-cwd = pathlib.Path(__file__).parent
-
-README = (cwd / "README.md").read_text()
-
 
 def read(rel_path):
     here = os.path.abspath(os.path.dirname(__file__))
@@ -30,34 +26,28 @@ if not core_only:
     name = "aimsim"
     desc = "Python command line and GUI tool to analyze molecular similarity."
     reqs = read("requirements.txt").split("\n")
-    packages = find_packages(exclude=["docs", "tests"])
+    packages = find_packages(exclude=["docs", "tests", "examples"])
     entry_points = {
         "console_scripts": [
             "aimsim=aimsim.__main__:start_AIMSim",
         ]
     }
+    cwd = pathlib.Path(__file__).parent
+    README = (cwd / "README.md").read_text()
 else:
     name = "aimsim_core"
     desc = "Core AIMSim molecular featurization and comparison utilities."
     reqs = read("requirements_core.txt").split("\n")
     packages = find_packages(
-        # include=[
-        #     "aimsim.chemical_datastructures",
-        #     "aimsim.ops",
-        #     "aimsim.utils.ccbmlib_fingerprints",
-        #     "aimsim.exceptions",
-        #     "aimsim",
-        # ],
-        exclude=[
-            "docs",
-            "tests",
-            "examples",
-            "interfaces",
-            "aimsim.tasks",
-            "aimsim",
-        ],
+        exclude=["docs", "tests", "examples", "interfaces", "aimsim.tasks"],
     )
     entry_points = {}
+    README = (
+        "This is a subset of the larger AIMSim cheminformatics software containing only the core "
+        "molecular featurization and comparison tools, intended for use by developers looking to extend "
+        "AIMSim without all the extra dependencies for plotting and visualization. For the full AIMSim "
+        "package, visit https://pypi.org/project/aimsim/."
+    )
 
 setup(
     name=name,
