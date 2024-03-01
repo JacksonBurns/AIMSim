@@ -55,6 +55,10 @@ It is recommended to install `AIMSim` in a virtual environment with [`conda`](ht
 `AIMSim` can be installed with a single command using Python's package manager `pip`:
 `pip install aimsim`
 This command also installs the required dependencies.
+
+> [!NOTE]
+> We also provide a sub-package of AIMSim called 'aimsim_core' which includes only the molecular featurization and similarity operations and therefore has far fewer dependencies, making it easier to extend. You can install it with `pip install aimsim_core`. This is only available via PyPi.
+
 ### `conda`
 `AIMSim` is also available with the `conda` package manager via:
 `conda install -c conda-forge aimsim`
